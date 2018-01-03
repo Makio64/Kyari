@@ -57,8 +57,8 @@ class MainScene extends Scene
 		@uniforms["tNormal"].value = THREE.ImageUtils.loadTexture("./3d/textures/HD/NMAP_eye.png")
 		@uniforms["tSpecular"].value = THREE.ImageUtils.loadTexture("./3d/textures/HD/DISP_eye.png")
 		@uniforms["tDiffuse"].value = THREE.ImageUtils.loadTexture("./3d/textures/HD/TEXT_eye.png")
-		@uniforms["enableDiffuse"].value = 1 
-		@uniforms["enableSpecular"].value = 1 
+		@uniforms["enableDiffuse"].value = 1
+		@uniforms["enableSpecular"].value = 1
 		@uniforms["uNormalScale"].value.x = 2
 		@uniforms["uNormalScale"].value.y = 2
 
@@ -82,7 +82,7 @@ class MainScene extends Scene
 		return
 
 	onBaseLoad:(geometry)=>
-		
+
 		@computeGeometry(geometry)
 
 		shader = THREE.ShaderLib["normalmap"]
@@ -90,8 +90,8 @@ class MainScene extends Scene
 		@uniforms["tNormal"].value = THREE.ImageUtils.loadTexture("./3d/textures/HD/normalBase2048.png")
 		@uniforms["tSpecular"].value = THREE.ImageUtils.loadTexture("./3d/textures/HD/specularBase2048.png")
 		@uniforms["tDiffuse"].value = THREE.ImageUtils.loadTexture("./3d/textures/HD/base1024.png")
-		@uniforms["enableDiffuse"].value = 1 
-		@uniforms["enableSpecular"].value = 1 
+		@uniforms["enableDiffuse"].value = 1
+		@uniforms["enableSpecular"].value = 1
 		@uniforms["uNormalScale"].value.x = 2
 		@uniforms["uNormalScale"].value.y = 2
 
@@ -110,7 +110,7 @@ class MainScene extends Scene
 		return
 
 	onCrystalLoad:(geometry)=>
-		
+
 		@computeGeometry(geometry)
 
 		@crystalUniforms = {
@@ -120,7 +120,7 @@ class MainScene extends Scene
 		}
 
 		material = new THREE.ShaderMaterial({
-			
+
 			fragmentShader:  [
 				"uniform sampler2D tDiffuse;",
 				"uniform float uGlobalTime;",
@@ -160,7 +160,7 @@ class MainScene extends Scene
 		return
 
 	onWaterLoad:(geometry)=>
-		
+
 		@computeGeometry(geometry)
 
 		@waterUniforms = {
@@ -170,7 +170,7 @@ class MainScene extends Scene
 		}
 
 		material = new THREE.ShaderMaterial({
-			
+
 			fragmentShader:  [
 				"uniform sampler2D tDiffuse;",
 				"uniform float uGlobalTime;",
@@ -216,14 +216,14 @@ class MainScene extends Scene
 		return
 
 	onWheelsLoad:(scene)=>
-		
+
 		shader = THREE.ShaderLib["normalmap"]
 		@uniforms = THREE.UniformsUtils.clone(shader.uniforms)
 		@uniforms["tNormal"].value = THREE.ImageUtils.loadTexture("./3d/textures/HD/130331_NMAP_roues2048.png")
 		@uniforms["tSpecular"].value = THREE.ImageUtils.loadTexture("./3d/textures/HD/130331_DISP_roues2048.png")
 		@uniforms["tDiffuse"].value = THREE.ImageUtils.loadTexture("./3d/textures/HD/130331_TEXT_roues2048_002.png")
-		@uniforms["enableDiffuse"].value = 1 
-		@uniforms["enableSpecular"].value = 1 
+		@uniforms["enableDiffuse"].value = 1
+		@uniforms["enableSpecular"].value = 1
 		# @uniforms["uNormalScale"].value.x = 2
 		# @uniforms["uNormalScale"].value.y = 2
 
@@ -249,16 +249,15 @@ class MainScene extends Scene
 			@container.add(o)
 			if (/_y_/i).test(k)
 				@wheelsVertical.push(o)
-			else 
+			else
 				@wheelsHorizontal.push(o)
-			
+
 		return
 
 	computeGeometry:(geometry)->
 		# compute the model
 		geometry.computeBoundingSphere()
 		geometry.computeFaceNormals()
-		geometry.computeVertexNormals()
 		geometry.computeVertexNormals()
 		geometry.computeTangents()
 		geometry.computeMorphNormals()
@@ -275,7 +274,7 @@ class MainScene extends Scene
 				w.rotation.y += 0.003
 			for w in @wheelsHorizontal
 				w.rotation.x += 0.003
-		if @closeDown 
+		if @closeDown
 			@closeDown.rotation.x = Math.abs(Math.sin(@time/1000)*.7)
 			@closeUp.rotation.x = -Math.abs(Math.sin(@time/1000)*.7)
 
@@ -284,5 +283,5 @@ class MainScene extends Scene
 		if(@waterUniforms)
 			@waterUniforms["uGlobalTime"].value += dt/30
 
-		
+
 		return
